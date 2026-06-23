@@ -1,0 +1,117 @@
+<or>
+  <!-- File Type -->
+  <add asArray="true">
+    <varstring name="FileType" scope="event"/>
+    <varstring name="temp-CustomRuleData" scope="event"/>
+  </add>
+  <add asArray="false">
+    <varstring name="temp-CustomRuleData" scope="event"/>
+    <evtSrcFileType/>
+  </add>
+  <set>
+    <varstring name="temp-CustomRuleData" scope="event"/>
+    <string value=" " preserveCase="true"/>
+  </set>
+
+
+  <!-- Agent IP -->
+  <add asArray="true">
+    <varstring name="AgentIP" scope="event"/>
+    <varstring name="temp-CustomRuleData" scope="event"/>
+  </add>
+  <add asArray="false">
+    <varstring name="temp-CustomRuleData" scope="event"/>
+    <agentIPAddress/>
+  </add>
+  <set>
+    <varstring name="temp-CustomRuleData" scope="event"/>
+    <string value=" " preserveCase="true"/>
+  </set>
+  
+  <!-- Connected -->
+  <!--
+  <userFunction name="dnscheck"/>
+  -->
+
+  <and>
+    <like expr="%samsungdex%">
+      <curProcessImageName />
+    </like>
+<!--
+    <or>
+      <userFunction name ="src_file_extension"/>
+      <userFunction name ="src_image_extension"/>
+      <userFunction name ="src_drawing_extension"/>
+      <userFunction name ="src_file_type"/>
+      <userFunction name ="src_image_type"/>
+      <userFunction name ="src_drawing_type"/>
+    </or>
+-->
+    <in>
+      <evtOperationType />
+      <list>
+        <constOpFileOpen />
+        <constOpFileRead />
+      </list>
+    </in>
+  </and>
+  <and>
+    <not>
+      <in>
+        <evtSrcFileExt />
+        <list>
+          <string value = "tmp" />
+          <!--<string value = "bak" />-->
+        </list>
+      </in>
+    </not>
+    <not> 
+      <!-- Src File Path -->
+      <in op = "like" match = "any">
+        <evtSrcFilePath />
+        <list>
+          <string value = "%lanmanredirector" />
+          <string value = "%share.log" />
+          <string value = "%.uacon" />
+          <string value = "%\netlogon\%" />
+          <string value = "%\appdata\local\temp\%" />
+          <string value = "%\~%" />
+          <string value = "%\appdata\roaming\%" />
+          <string value = "%\appdata\local\%" />
+          <string value = "%\programdata\%" />
+          <string value = "C:\Program Files\iTunes\ColorSync.resources\Profiles\srgb%" />
+          <string value = "C:\Windows\System32\icoreg.sys" />
+        </list>
+      </in>
+    </not>
+    <not>
+      <!-- Dest File Path -->
+      <in op = "like" match = "any">
+        <evtDestFilePath />
+        <list>
+          <string value = "%\appdata\local\temp\%" />
+          <string value = "%\inetcache\%" />
+        </list>
+      </in>
+    </not>
+    <!--
+    <or>
+      <userFunction name ="src_file_extension"/>
+      <userFunction name ="src_image_extension"/>
+      <userFunction name ="src_drawing_extension"/>
+      <userFunction name ="src_file_type"/>
+      <userFunction name ="src_image_type"/>
+      <userFunction name ="src_drawing_type"/>
+    </or>
+   -->
+    <like expr="%itunes%">
+      <curProcessImageName />
+    </like>
+    <in>
+      <evtOperationType />
+      <list>
+        <constOpFileRead />
+      </list>
+    </in>
+  </and>
+</or>

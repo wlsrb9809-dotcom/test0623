@@ -1,5 +1,5 @@
 <or>
-   <!-- File Type -->
+  <!-- File Type -->
   <add asArray="true">
     <varstring name="FileType" scope="event"/>
     <varstring name="temp-CustomRuleData" scope="event"/>
@@ -12,6 +12,7 @@
     <varstring name="temp-CustomRuleData" scope="event"/>
     <string value=" " preserveCase="true"/>
   </set>
+
 
   <!-- Agent IP -->
   <add asArray="true">
@@ -26,17 +27,11 @@
     <varstring name="temp-CustomRuleData" scope="event"/>
     <string value=" " preserveCase="true"/>
   </set>
-
-  <!-- DNS Check -->
-  <add asArray="true"><varstring name="CustomRuleData" scope="event"/> <varstring name="Temp-Buffer" scope="event"/></add>
-  <add asArray="false"><varstring name="Connected" scope="event"/><dnsHostAvailable name="10.13.11.19" /></add>
-  <add asArray="true" ><varstring name="Connected" scope="event"/><string value="" /></add>
-
-  <!-- DGCOMM Check -->
-  <add asArray="true">
-    <varstring name="ServerConnection" scope="event"/>
-    <serverAvailable/>
-  </add>
+  
+  <!-- Connected -->
+  <!--
+  <userFunction name="dnscheck"/>
+  -->
 
   <and>
     <like expr="%samsungdex%">
@@ -117,6 +112,11 @@
       <list>
         <constOpFileRead />
       </list>
+asdf
+asdf
+asdf
+asdf
+
     </in>
   </and>
 </or>
